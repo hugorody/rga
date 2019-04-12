@@ -7,31 +7,33 @@ from Bio.Phylo.PAML import yn00
 
 inparalogs_file = "/home/hugo/Dropbox/Esalq/references/RGA/OrthoMCL/pairs/inparalogs.txt"
 
-#/home/hugo/Dropbox/Esalq/references/MonoploidReference/single_tiling_path_cds.fna
 R570_file = "/home/hugo/Dropbox/Esalq/references/MonoploidReference/single_tiling_path_cds.fna"
 COMPGG_file = ""
 AP85_file = "/home/hugo/Dropbox/Esalq/references/AP85-441/monoploide_version/Sspon_monoploidy.cds.fasta"
 Sorghum_file = "/home/hugo/Dropbox/Esalq/references/SorghumPLAZA/cds.selected_transcript.sbi.fasta"
 
-organism = "AP85-441"
+organism = "AP85-441" #Chose the reference: COMPGG, Sorghum, R570, or AP85-441
 
+#catalog used by OrthoMCL
 taxons = {"COMPGG":"Taxon0|",
             "Sorghum":"Taxon1|",
             "R570":"Taxon2|",
             "AP85-441":"Taxon3|"}
 
+#Catalog of organisms and its FASTA files
 files = {"COMPGG":COMPGG_file,
             "Sorghum":Sorghum_file,
             "R570":R570_file,
             "AP85-441":AP85_file}
 
-
+#Dictionary containing all predited in-paralogs
 inparalogs_dic = {}
 with open(inparalogs_file,"r") as set1:
     for i in set1:
         i = i.rstrip().split("\t")
         inparalogs_dic[i[0]] = i[1]
 
+#organism FASTA dictionary
 organism_fasta = {}
 with open(files[organism],"r") as set1:
     for i in SeqIO.parse(set1,"fasta"):
@@ -44,6 +46,8 @@ with open(files[organism],"r") as set1:
         #print (seqID)
         organism_fasta[seqID] = str(i.seq)
 
+#Create FASTA file for each pair of in-paralogs
+#Align FASTA files of each pair of in-paralogs using the TranslatorX
 for i in inparalogs_dic.keys():
     if taxons[organism] in i:
         copy1 = i.replace(taxons[organism],"")
@@ -67,6 +71,7 @@ for i in inparalogs_dic.keys():
 
             os.remove(namefasta)
 
+#remove unecessary data
 #remove all html
 html_infolder = glob.glob('*.html')
 for x in html_infolder:
@@ -82,7 +87,7 @@ aaseqs_infolder = glob.glob('*.aaseqs')
 for x in aaseqs_infolder:
     os.remove(x)
 
-
+#Convert FASTA to PHYLIP
 for i in inparalogs_dic.keys():
     if taxons[organism] in i:
         copy1 = i.replace(taxons[organism],"")
@@ -99,7 +104,7 @@ for i in inparalogs_dic.keys():
             fasta2phy = subprocess.Popen("perl Fasta2Phylip.pl " + nametranslator + " " + namealnphy,shell=True)
             fasta2phy.wait()
 
-            #os.remove(namealnfasta)
+            #remove unecessary data
             os.remove(nametranslator)
             os.remove(copy1+"_"+copy2+".aln.fasta.aa_ali.fasta")
             os.remove(copy1+"_"+copy2+".aln.fasta.aaseqs.fasta")
@@ -108,7 +113,7 @@ for i in inparalogs_dic.keys():
             os.remove(copy1+"_"+copy2+".aln.fasta.nt2_ali.fasta")
             os.remove(copy1+"_"+copy2+".aln.fasta.nt3_ali.fasta")
 
-
+#Run PAML yn00 for each PHYLIP alignment and create the final output table
 output_yn00 = open(organism+"_yn00_finalresult.csv","w")
 output_yn00.write("Seq1\tSeq2\tdS\tdS SE\tdN\tdN SE\n")
 for i in inparalogs_dic.keys():
