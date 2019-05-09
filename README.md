@@ -1,7 +1,7 @@
 # rga
-Scritps used for the study of RGAs
+Scritps used for the prediction and analysis of Resistance Gene Aanalogs (RGAs)
 
-Command lines to run each of the used softwares:
+Command lines used to run each of the softwares from the pipeline:
 
 1) Phobius
 
