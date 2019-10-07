@@ -3,11 +3,11 @@ from Bio import SeqIO
 import pandas as pd
 ################################################################################
 # Inputs
-coilsfile = "/home/hugo/Dropbox/Esalq/references/RGA/AP85-441/Monoploid/Sspon_monoploidy.protein.fasta.new.coils" #coils predictions output
-tmhmmfile = "/home/hugo/Dropbox/Esalq/references/RGA/AP85-441/Monoploid/Sspon_monoploidy.protein.fasta.tmhmm" #tmhmm predictions output
-interprofile = "/home/hugo/Dropbox/Esalq/references/RGA/AP85-441/Monoploid/Sspon_monoploidy.protein.fasta.tsv" #interpro predictions output
-pfamfile = "/home/hugo/Dropbox/Esalq/references/RGA/AP85-441/Monoploid/Sspon_monoploidy.protein.fasta.pfamscan" #pfam_scan predctions output
-phobiusfile = "/home/hugo/Dropbox/Esalq/references/RGA/AP85-441/Monoploid/Sspon_monoploidy.protein.fasta.phobius" #phobius predictions output
+coilsfile = "Sspon_monoploidy.protein.fasta.new.coils" #coils predictions output
+tmhmmfile = "Sspon_monoploidy.protein.fasta.tmhmm" #tmhmm predictions output
+interprofile = "Sspon_monoploidy.protein.fasta.tsv" #interpro predictions output
+pfamfile = "Sspon_monoploidy.protein.fasta.pfamscan" #pfam_scan predctions output
+phobiusfile = "Sspon_monoploidy.protein.fasta.phobius" #phobius predictions output
 
 #outputs
 #out_falsRGAs = open("RGAdb_false_beta2.tsv","w") #sequences not harboring RGA basic domains
