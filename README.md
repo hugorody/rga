@@ -16,7 +16,7 @@ Note: Line 33 from the file "tmhmm" was commented, and full path was added to mo
 
 $ export COILSDIR=/path/to/coils
 
-$ ./ncoils-osf -min_seg 1 -f < file.fas > file.fas.coils\n
+$ ./ncoils-osf -min_seg 1 -f < file.fas > file.fas.coils
 
 #### 4) PfamScan
 
@@ -25,3 +25,7 @@ perl pfam_scan.pl -fasta file.fas -dir ./PfamDATA/ -outfile file.fas.pfamscan
 #### 5) InterproScan
 
 ./interproscan.sh -i file.fas -f tsv
+
+#### 6) TargetP2
+
+./targetp -fasta file.fas -gff3 -format short -org pl
